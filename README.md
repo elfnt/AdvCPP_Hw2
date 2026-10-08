@@ -1,11 +1,18 @@
 # C++ Hw1
 
 實驗環境：
-- Macbook Air M3（arm64, 4 P-cores and 4 E-cores）
-- macOS 15.6.1
-- Homebrew GCC 16.2.0
-- 24 GB RAM
-- 512 GB SSD
+
+| 項目 | 內容 |
+|:--|:--|
+| 機器 | MacBook Air，Apple M3（arm64，4 P-core + 4 E-core），24 GB RAM |
+| 作業系統 | macOS 15.6.1（24G90） |
+| 編譯器 | Homebrew GCC 16.2.0（`g++-16`） |
+| 編譯旗標 | 預設 `-std=c++17 -O2`；個別實驗另加 `-O3`、`-ffast-math`、`-march=armv8.2-a+fp16`，會在該題註明 |
+| 函式庫 | 數學函式：macOS 內建 Apple libm（`libsystem_m.dylib`）；`_Float128` 用 GCC 附的 libquadmath |
+| 分析工具 | `lldb`（反組譯 libm）、Python 3.13 + mpmath 1.4.1（Q2 的高精度參考值） |
+| 浮點相關巨集 | `__LDBL_MANT_DIG__ = 53`、`__FP_FAST_FMA = 1`、`__FLT_EVAL_METHOD__ = 0` |
+| Q5 對照機 | Windows 10 Pro（19045），Intel i5-12400F，winlibs MinGW-w64 GCC 16.2.0（i686，32 位元） |
+
 
 
 ## Q1
@@ -60,7 +67,7 @@ for (int i = 0; i < n; ++i) { acc += sin(x); x += T(1e-2); }
 
 
 因為 `float128` 太慢，所以下圖 y 軸是用對數尺度。
-![Q1 benchmark 結果](q1_chart.png)
+![image](https://hackmd.io/_uploads/HySq1JEsGl.png)
 
 #### 實驗一 (a)
 **結論**：有硬體支援的三種型別——加法、乘法一樣快，除法、開根號 float 快約 20%。
